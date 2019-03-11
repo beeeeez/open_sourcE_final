@@ -1,0 +1,33 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <form action="doit" method="POST">
+            <input type="hidden" name="itemID" value="<%= itemID %>">
+            <label>Item ID : <%= itemID %></label>
+            <label>Item Name : </label>
+            <input type="text" name="itemName" value="<%= itemName %>"><br />
+            <label>Item Description : </label>
+            <input type="text" name="itemDesc" value="<%= itemDesc %>"><br />
+            <input type="submit" value="Add Item" />
+    </form>
+    </div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

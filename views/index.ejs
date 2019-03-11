@@ -13,9 +13,10 @@
 
 <main>
     <div class="jumbotron">
+        <h3>Number of Records : <%= recs %></h3>
         <ul>
             <% for(let i = 0; i < recs ;i++) { %>
-            <li>Item ID :<%= itemID[i] %></li>
+            <li>Item ID : <%= i  %>     -      <a href="del?id=<%= i  %>"</a>delete</a>      -    <a href="update?id=<%= i  %>"</a>update</a></li>
             <li>Item Name : <%= itemName[i] %></li>
             <li>Item Desc : <%= itemDesc[i] %></li> <br /> <br />        
             <% } %>

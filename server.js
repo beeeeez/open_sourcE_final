@@ -13,6 +13,8 @@ const getRecs = promisify(client.hget).bind(client);
 const getLists = promisify(client.lrange).bind(client);
 const pushItem = promisify(client.rpush).bind(client);
 const setRecs = promisify(client.hset).bind(client);
+const delRecs1 = promisify(client.lset).bind(client);
+const delRecs2 = promisify(client.lrem).bind(client);
 
 
 butts.set('view engine', 'ejs');
@@ -64,6 +66,44 @@ butts.post('/add', async (req,res) => {
     temp = await pushItem("itemDesc",itemDesc);
     res.redirect('/');
 });
+
+butts.get('/del', async (req,res) =>{
+    let jimmy = req.query.id;
+    console.log(jimmy);
+    let temp = await delRecs1("itemID",parseInt(jimmy), "-deleted");
+    temp = await delRecs1("itemName",parseInt(jimmy), "-deleted");
+    temp = await delRecs1("itemDesc",parseInt(jimmy), "-deleted");
+    temp = await delRecs2("itemID",0, "-deleted");
+    temp = await delRecs2("itemName",0, "-deleted");
+    temp = await delRecs2("itemDesc",0, "-deleted");
+    jimmy = await getRecs(3000, "numberofRecs");
+    temp = await setRecs(3000, "numberofRecs",parseInt(jimmy)-1);
+    res.redirect('/');
+});
+
+butts.get("/update", async(req,res) =>{
+    let jimmy = req.query.id;
+    let itemID = await getLists("itemID",0,jimmy);
+    let itemName = await getLists("itemName",0,jimmy);
+    let itemDesc = await getLists("itemDesc",0,jimmy);    
+    res.render('update', {
+        itemID:itemID[jimmy],
+        itemName:itemName[jimmy],
+        itemDesc:itemDesc[jimmy]
+    });
+
+
+});
+
+butts.post("/doit", async(req,res) =>{
+    let itemID = req.body.itemID;
+    let itemName = req.body.itemName;
+    let itemDesc = req.body.itemDesc;
+    let temp = await delRecs1("itemName", parseInt(itemID)-1,itemName)
+     temp = await delRecs1("itemDesc", parseInt(itemID)-1,itemDesc)
+    res.redirect('/');    
+});
+
 
 
 
