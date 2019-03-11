@@ -1,0 +1,31 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <ul>
+            <% for(let i = 0; i < recs ;i++) { %>
+            <li>Item ID :<%= itemID[i] %></li>
+            <li>Item Name : <%= itemName[i] %></li>
+            <li>Item Desc : <%= itemDesc[i] %></li> <br /> <br />        
+            <% } %>
+        </ul>
+    </div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

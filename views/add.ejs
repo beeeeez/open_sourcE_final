@@ -1,0 +1,31 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <form action="add" method="POST">
+            <label>Item Name : </label>
+            <input type="text" name="itemName"><br />
+            <label>Item Description : </label>
+            <input type="text" name="itemDesc"><br />
+            <input type="submit" value="Add Item" />
+    </form>
+    </div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>
