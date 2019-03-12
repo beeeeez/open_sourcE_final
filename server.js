@@ -27,10 +27,10 @@ client.on("error", function (err) {
 });
 
 
-client.hset(3000, "numberofRecs", 3, redis.print);
-client.rpush("itemID", [1,2,3]);
-client.rpush("itemName", ["HamHocks","blargh","Jimmy"]);
-client.rpush("itemDesc", ["Hammock made of ham.","nooooooo","johnson" ]);
+client.hset(3000, "numberofRecs", 5, redis.print);
+client.rpush("itemID", [1,2,3,4,5]);
+client.rpush("itemName", ["HamHocks","blargh","Jimmy", "coca","dubya"]);
+client.rpush("itemDesc", ["Hammock made of ham.","nooooooo","johnson","cola","buasch" ]);
 
 
 
@@ -77,7 +77,7 @@ butts.get('/del', async (req,res) =>{
     temp = await delRecs2("itemName",0, "-deleted");
     temp = await delRecs2("itemDesc",0, "-deleted");
     jimmy = await getRecs(3000, "numberofRecs");
-    temp = await setRecs(3000, "numberofRecs",parseInt(jimmy)-1);
+    temp = await setRecs(3000, "numberofRecs",parseInt(jimmy-1));
     res.redirect('/');
 });
 
@@ -87,7 +87,7 @@ butts.get("/update", async(req,res) =>{
     let itemName = await getLists("itemName",0,jimmy);
     let itemDesc = await getLists("itemDesc",0,jimmy);    
     res.render('update', {
-        itemID:itemID[jimmy],
+        itemID:jimmy,
         itemName:itemName[jimmy],
         itemDesc:itemDesc[jimmy]
     });
@@ -99,8 +99,8 @@ butts.post("/doit", async(req,res) =>{
     let itemID = req.body.itemID;
     let itemName = req.body.itemName;
     let itemDesc = req.body.itemDesc;
-    let temp = await delRecs1("itemName", parseInt(itemID)-1,itemName)
-     temp = await delRecs1("itemDesc", parseInt(itemID)-1,itemDesc)
+    let temp = await delRecs1("itemName", parseInt(itemID),itemName)
+     temp = await delRecs1("itemDesc", parseInt(itemID),itemDesc)
     res.redirect('/');    
 });
 
